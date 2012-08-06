@@ -1,0 +1,24 @@
+{
+  "name": "p2pnode",
+  "version": "0.0.0",
+  "description": "a p2pnode network",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/polarity/p2p-node.git"
+  },
+  "keywords": [
+    "p2p",
+    "communication",
+    "network"
+  ],
+  "author": "robert agthe",
+  "license": "BSD",
+  "dependencies": {
+    "net": "~1.0.0"
+  }
+}

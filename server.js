@@ -4,6 +4,8 @@ var serversActive = []
 var serversBuddys = []
 var Client = false
 var Server = false
+
+// standard server
 serversActive.push("192.168.1.5")
 
 // search array for an ip
