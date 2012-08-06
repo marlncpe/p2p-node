@@ -6,7 +6,7 @@ var Client = false;
 var Server = false;
 var port = 2324;
 // standard server
-serversActive.push("95.143.172.12"); // Fornax
+serversActive.push("95.143.172.12:2324"); // Fornax
 
 // search array for an ip
 var findIp = function(ip) {
@@ -35,19 +35,19 @@ var addIPs = function(ipArr) {
 var pingIps = function(ipArr) {
 	for(var k in ipArr) {
 		var client = net.connect(port, ipArr[k], function() {
-			console.log('correct IP found ->'+ipArr[k]);
-			console.log('i contact this ip and see if i get some new stuff :)');
+			console.log('CLIENT: correct IP found ->'+ipArr[k]);
+			console.log('CLIENT: i contact this ip and see if i get some new stuff :)');
 			client.write('show\r\n');
 		});
 
 		client.on('data',function(response){
-			console.log('wohooo, got new ips. look -> '+response.toString() );
+			console.log('CLIENT: wohooo, got new ips. look -> '+response.toString() );
 			addIPs(JSON.parse(response.toString()));
-			console.log('new ips added!');
+			console.log('CLIENT: new ips added!');
 		});
 
 		client.on('error',function(){
-			console.log('incorrect ip found :( ->'+ipArr[k]);
+			console.log('CLIENT: incorrect ip found -> ('+ipArr[k]+')');
 		});
 
 	}
@@ -61,23 +61,26 @@ Server = net.createServer(function(c) {
 	// Event: Fire on Input Data
 	c.on('data', function(data) {
 		var command = data.toString().trim();
-		console.log('date received: '+data);
+		console.log('SERVER: data received: '+data);
 		// user sends "show" command
 		if(command == 'show') {
+			console.log('SERVER: executing command "show"');
 			// list all known ips
 			c.write(JSON.stringify(serversActive));
 		}
 
 		else if(command == 'pingall') {
+			console.log('SERVER: executing command "pingall"');
 			pingIps(serversActive);
 		}
 
 		else {
+			console.log('SERVER: executing command "addIps"');
 			// User has sende an array of ips
 			addIPs(JSON.parse(data.toString().trim()));
 		}
 	});
-}).listen(port);
+}).listen(port,'127.0.0.1');
 
 // check all ips and get 
 // new ips from stable connections
