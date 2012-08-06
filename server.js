@@ -80,7 +80,7 @@ Server = net.createServer(function(c) {
 			addIPs(JSON.parse(data.toString().trim()));
 		}
 	});
-}).listen(port,'127.0.0.1');
+}).listen(port,'95.143.172.12');
 
 // check all ips and get 
 // new ips from stable connections
