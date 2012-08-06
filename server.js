@@ -4,7 +4,7 @@ var serversActive = [];
 var serversBuddys = [];
 var Client = false;
 var Server = false;
-
+var port = 2324;
 // standard server
 serversActive.push("95.143.172.12"); // Fornax
 
@@ -34,7 +34,7 @@ var addIPs = function(ipArr) {
 // ping ips and get new ips from stable connections
 var pingIps = function(ipArr) {
 	for(var k in ipArr) {
-		var client = net.connect(2324, ipArr[k], function() {
+		var client = net.connect(port, ipArr[k], function() {
 			console.log('correct IP found ->'+ipArr[k]);
 			console.log('i contact this ip and see if i get some new stuff :)');
 			client.write('show\r\n');
@@ -77,7 +77,7 @@ Server = net.createServer(function(c) {
 			addIPs(JSON.parse(data.toString().trim()));
 		}
 	});
-}).listen('9726');
+}).listen(port);
 
 // check all ips and get 
 // new ips from stable connections
